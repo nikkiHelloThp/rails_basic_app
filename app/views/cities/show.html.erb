@@ -1,0 +1,15 @@
+City: <%= @city.name %><br><br>
+
+<% @author.each do |author| %>
+	<%= author.l_name %>:<br>
+	<% author.gossips.each do |gossip| %>
+
+		<div class="row">
+			<p>Title: <%= gossip.title %>, Content: <%= gossip.body %></p>
+			<%= button_to "+", gossip_likes_path(gossip.id) , class: "btn btn-danger" %>
+	  	<% if gossip.likes.size != 0 %>
+	  		<%= button_to "-", gossip_like_path(gossip.id, gossip.likes), method: :delete, class: "btn btn-dark" %>
+	  	<% end %>
+	  </div>
+	<% end %>
+<% end %>

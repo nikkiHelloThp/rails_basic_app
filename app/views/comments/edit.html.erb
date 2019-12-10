@@ -1,0 +1,13 @@
+<% if params[:gossip_id] %>
+	<%= form_tag gossip_comment_path, method: :put do %>
+		<% form_authenticity_token %>
+		<%= text_field_tag 'body', nil, placeholder: @comment.body %>
+		<%= submit_tag 'valider', class: "btn btn-success" %>
+	<% end %>
+<% elsif params[:comment_id] %>
+	<%= form_tag comment_comment_path, method: :put do %>
+		<% form_authenticity_token %>
+		<%= text_field_tag 'body', nil, placeholder: @comment.body %>
+		<%= submit_tag 'valider', class: "btn btn-success" %>
+	<% end %>
+<% end %>

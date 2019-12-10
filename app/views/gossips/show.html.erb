@@ -1,0 +1,43 @@
+<p>Title: <%= @gossip.title %></p>
+<p>Content: <%= @gossip.body %></p>
+<p>Tag: <%= @tag %></p>
+<div class="row">
+	<%= button_to "+", gossip_likes_path(@gossip.id) , class: "btn btn-danger" %>
+	<% if @gossip.likes.size != 0 %>
+		<%= button_to "-", gossip_like_path(@gossip.id, @gossip.likes), method: :delete, class: "btn btn-dark" %>
+	<% end %>
+</div>
+<p>Author: <%= @gossip.author.l_name %> <%= link_to "Show", profile_path(@gossip.author_id), class: "btn btn-primary" %></p>
+<% if @gossip.author.city != nil %>
+<p>City: <%= @gossip.author.city.name %> <%= link_to "Show", city_path(@gossip.author.city_id), class: "btn btn-primary" %></p>
+<% end %>
+
+<% if current_user == @gossip.author %>
+<%= link_to "Delete", gossip_path(@gossip), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %>
+<%= link_to "Edit", edit_gossip_path(@gossip), class: "btn btn-warning" %><br>
+<% end %>
+
+<h3>Comments</h3><hr>
+<% @comments.each do |comment| %>
+	<p><%= comment.body %> <%= link_to "Edit", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-warning" %> <%= link_to "Delete", gossip_comment_path(@gossip.id, comment.id), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %></p>
+	<% comment.comments.each do |inner_comment| %>
+		<strong><%= inner_comment.author.f_name %></strong>
+		<%= inner_comment.body %>
+		<%= link_to "Edit", edit_comment_comment_path(comment.id, inner_comment.id), class: "btn btn-warning" %>
+		<%= link_to "Delete", comment_comment_path(comment.id, inner_comment.id), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %><br>
+	<% end %>
+
+	<%= form_tag "/comments/#{comment.id}/comments" do %>
+		<% form_authenticity_token %>
+		<%= text_field_tag 'body', nil, placeholder: 'want to reply ?' %>
+		<%= submit_tag 'answer', class: "btn btn-secondary" %>
+	<% end %>
+
+	<hr>
+<% end %>
+
+<%= form_tag "/gossips/#{@gossip.id}/comments" do %>
+	<% form_authenticity_token %>
+	<%= text_field_tag 'body', nil, placeholder: 'something to say ?' %>
+	<%= submit_tag 'valider', class: "btn btn-success" %>
+<% end %>

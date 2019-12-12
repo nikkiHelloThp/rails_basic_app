@@ -51,8 +51,9 @@
       <div class="alert alert-<%= type %>"><%= message %></div>
     <% end %>
     <!-- End of Flash messages -->
-
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
 

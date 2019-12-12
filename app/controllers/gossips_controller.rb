@@ -3,7 +3,7 @@ class GossipsController < ApplicationController
 	before_action :authenticate_creator, only: [:edit, :update, :destroy]
 
 	def index
-		@gossips = Gossip.all
+		@gossips = Gossip.includes(:likes, :comments).all
 		@tags = Tag.all
 	end
 

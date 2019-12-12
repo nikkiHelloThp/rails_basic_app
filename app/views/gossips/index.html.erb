@@ -15,7 +15,7 @@
 				  	<p><span class="badge badge-danger"><%= gossip.likes.size %></span> likes</p>
 				  	<div class="row">
 				  	<%= button_to "+", gossip_likes_path(gossip.id) , class: "btn btn-danger" %>
-				  	<% if gossip.likes.size != 0 %>
+				  	<% if gossip.likes.size > 0 %>
 				  		<%= button_to "-", gossip_like_path(gossip.id, gossip.likes), method: :delete, class: "btn btn-dark" %>
 				  	<% end %>
 				  	</div>

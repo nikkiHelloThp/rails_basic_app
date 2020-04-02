@@ -33,6 +33,9 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'minitest-reporters', '~> 1.4', '>= 1.4.2'
+  gem 'mini_backtrace', '~> 0.1.3'
+  gem 'guard-minitest', '~> 2.4', '>= 2.4.6'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

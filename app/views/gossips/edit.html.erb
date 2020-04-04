@@ -1,6 +1,6 @@
 <%= form_tag @gossip, method: :put do %>
 	<% form_authenticity_token %>
-	<%= select_tag 'tag', options_for_select(@tags.map{ |tag| tag.name }) %>
+	<%= select_tag 'tag', options_for_select(@tags.map(&:name)) %>
 	<%= text_field_tag 'title', nil, placeholder: @gossip.title %>
 	<%= text_field_tag 'body', nil, placeholder: @gossip.body %>
 	<%= submit_tag 'valider', class: "btn btn-success" %>

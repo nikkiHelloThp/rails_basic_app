@@ -35,6 +35,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'minitest-reporters', '~> 1.4', '>= 1.4.2'
   gem 'mini_backtrace', '~> 0.1.3'
+  gem 'guard', '~> 2.16', '>= 2.16.2'
   gem 'guard-minitest', '~> 2.4', '>= 2.4.6'
 end
 

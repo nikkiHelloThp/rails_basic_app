@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class CityTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should save city" do
+  	city = City.new
+    assert city.save
+  end
 end

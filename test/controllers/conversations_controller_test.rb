@@ -1,7 +1,13 @@
-require 'test_helper'
+# require 'test_helper'
 
-class ConversationsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
-end
+# class ConversationsControllerTest < ActionController::TestCase
+#   test "should get index" do
+#   	get :index
+#     assert_response :success
+#   end
+
+#   test "should get create" do
+#   	get :create
+#     assert_response :success
+#   end
+# end

@@ -1,15 +1,21 @@
-City: <%= @city.name %><br><br>
-
+<h1>City</h1><hr>
+<h3 class="text-muted"><%= @city.name %></h3><br><br>
+<h2>Authors living in the city</h2><hr>
 <% @author.each do |author| %>
-	<%= author.l_name %>:<br>
+	<h4><%= author.l_name %></h4>
 	<% author.gossips.each do |gossip| %>
-
-		<div class="row">
-			<p>Title: <%= gossip.title %>, Content: <%= gossip.body %></p>
-			<%= button_to "+", gossip_likes_path(gossip.id) , class: "btn btn-danger" %>
-	  	<% if gossip.likes.size != 0 %>
-	  		<%= button_to "-", gossip_like_path(gossip.id, gossip.likes), method: :delete, class: "btn btn-dark" %>
+		<div class="row ml-3">
+			<p><strong><%= gossip.title %></strong></p> |
+			<p class="text-muted"><%= gossip.body %></p> |
+			<%= button_to gossip_likes_path(gossip) , class: "btn btn-primary" do %>
+				<i class="fa fa-thumbs-up"></i>
+			<% end %>
+	  	<% if gossip.likes.size > 0 %>
+	  		<%= button_to gossip_like_path(gossip, gossip.likes), method: :delete, class: "btn btn-danger" do %>
+					<i class="fa fa-thumbs-down"></i>
+	  		<% end %>
 	  	<% end %>
-	  </div>
+  	</div>
 	<% end %>
+	<hr>
 <% end %>

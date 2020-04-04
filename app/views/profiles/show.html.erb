@@ -1,5 +1,17 @@
-Author's first name: <%= @author.f_name %><br>
-Author's last name: <%= @author.l_name %><br>
-<!-- Author's email: <%# @author.email %><br> -->
-Author's age: <%= @author.age %><br>
-Author's description: <%= @author.description %>
+<h1>Author</h1>
+<table class="table">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Age</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><%= @author.f_name %></td>
+		<td><%= @author.l_name %></td>
+		<td><%= @author.email %></td>
+		<td><%= @author.age %></td>
+		<td><%= @author.description %></td>
+	</tr>
+</table>

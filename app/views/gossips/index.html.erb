@@ -2,26 +2,18 @@
 	<div class="col-wrapper">
 		<div class="row cols-xs-space cols-sm-space cols-md-space">	
 			<% @gossips.each do |gossip| %>
-				<div class="card m-1" style="width: 18rem;">
+				<div class="card m-1 text-center" style="width: 18rem;">
 				  <div class="card-body">
-				  	<p><span class="badge badge-primary"><%= gossip.comments.size %></span> comments</p>
-
+				  	<!-- need counter_cache -->
+				  	<span class="badge badge-primary"><%= gossip.comments.size %> comments</span>
+						<span class="badge badge-danger"><%= gossip.likes.size %> likes</span>
 						<% @tags.map do |tag| %>
 							<% if gossip.tag_id == tag.id %>
-								<p><span><%= tag.name %></span></p>
+								<span class="badge badge-dark"><%= tag.name %></span>
 							<% end %>
 						<% end %>
-				  	
-				  	<p><span class="badge badge-danger"><%= gossip.likes.size %></span> likes</p>
-				  	<div class="row">
-				  	<%= button_to "+", gossip_likes_path(gossip.id) , class: "btn btn-danger" %>
-				  	<% if gossip.likes.size > 0 %>
-				  		<%= button_to "-", gossip_like_path(gossip.id, gossip.likes), method: :delete, class: "btn btn-dark" %>
-				  	<% end %>
-				  	</div>
-				    <h5 class="card-title"><%= gossip.title %></h5>
-				    <p class="card-text"><%= gossip.body %></p>
-				    <%= link_to "Show", gossip_path(gossip.id), class: "btn btn-primary btn-lg btn-block" %>
+				    <h1 class="card-title"><%= gossip.title %></h1>
+				    <%= link_to "Show", gossip_path(gossip), class: "btn btn-primary btn-lg btn-block" %>
 				  </div>
 				</div>
 			<% end %>

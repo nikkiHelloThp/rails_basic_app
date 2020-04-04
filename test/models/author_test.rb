@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class AuthorTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not save author without parameters" do
+    author = Author.new
+    assert_not author.save
+  end
+
+  test "should save author" do
+		author = Author.new(email: 'mail@mail.com', password: '000000')
+		assert author.save
+	end
 end

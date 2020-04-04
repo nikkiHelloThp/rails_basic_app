@@ -1,43 +1,69 @@
-<p>Title: <%= @gossip.title %></p>
-<p>Content: <%= @gossip.body %></p>
-<p>Tag: <%= @tag %></p>
+<h1><%= @gossip.title %></h1><span class="badge badge-dark"><%= @tag.name %></span>
+
+<p class="text-muted">
+
+	<%= @gossip.body %>
+	<% if current_user == @gossip.author %>
+		<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_gossip_path(@gossip) %>
+		<%= link_to '<i class="fa fa-trash"></i>'.html_safe, gossip_path(@gossip), method: :delete, data: { confirm: "Are you sure ?" } %>
+	<% end %>
+</p>
+<p>by:
+	<strong><%= @gossip.author.l_name %></strong>
+	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, profile_path(@gossip.author_id) %>
+</p>
+
 <div class="row">
-	<%= button_to "+", gossip_likes_path(@gossip.id) , class: "btn btn-danger" %>
-	<% if @gossip.likes.size != 0 %>
-		<%= button_to "-", gossip_like_path(@gossip.id, @gossip.likes), method: :delete, class: "btn btn-dark" %>
+	<%= button_to gossip_likes_path(@gossip), class: "btn btn-primary" do %>
+		<i class="fa fa-thumbs-up"></i>
+	<% end %>
+	<% if @gossip.likes.size > 0 %>
+		<%= button_to gossip_like_path(@gossip, @gossip.likes), method: :delete, class: "btn btn-danger" do %>
+			<i class="fa fa-thumbs-down"></i>
+		<% end %>
 	<% end %>
 </div>
-<p>Author: <%= @gossip.author.l_name %> <%= link_to "Show", profile_path(@gossip.author_id), class: "btn btn-primary" %></p>
-<% if @gossip.author.city != nil %>
-<p>City: <%= @gossip.author.city.name %> <%= link_to "Show", city_path(@gossip.author.city_id), class: "btn btn-primary" %></p>
+
+<% if !@gossip.author.city.nil? %>
+	<p>City:
+		<%= @gossip.author.city.name %>
+		<%= link_to '<i class="fa fa-eye"></i>'.html_safe, city_path(@gossip.author.city_id) %>
+	</p>
 <% end %>
 
-<% if current_user == @gossip.author %>
-<%= link_to "Delete", gossip_path(@gossip), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %>
-<%= link_to "Edit", edit_gossip_path(@gossip), class: "btn btn-warning" %><br>
-<% end %>
-
-<h3>Comments</h3><hr>
-<% @comments.each do |comment| %>
-	<p><%= comment.body %> <%= link_to "Edit", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-warning" %> <%= link_to "Delete", gossip_comment_path(@gossip.id, comment.id), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %></p>
-	<% comment.comments.each do |inner_comment| %>
-		<strong><%= inner_comment.author.f_name %></strong>
-		<%= inner_comment.body %>
-		<%= link_to "Edit", edit_comment_comment_path(comment.id, inner_comment.id), class: "btn btn-warning" %>
-		<%= link_to "Delete", comment_comment_path(comment.id, inner_comment.id), method: :delete, data: { confirm: "Are you sure ?" }, class: "btn btn-danger" %><br>
-	<% end %>
-
-	<%= form_tag "/comments/#{comment.id}/comments" do %>
-		<% form_authenticity_token %>
-		<%= text_field_tag 'body', nil, placeholder: 'want to reply ?' %>
-		<%= submit_tag 'answer', class: "btn btn-secondary" %>
-	<% end %>
-
-	<hr>
-<% end %>
-
+<h3>Comments</h3>
 <%= form_tag "/gossips/#{@gossip.id}/comments" do %>
 	<% form_authenticity_token %>
 	<%= text_field_tag 'body', nil, placeholder: 'something to say ?' %>
-	<%= submit_tag 'valider', class: "btn btn-success" %>
+	<%= button_tag do %>
+		<i class="fa fa-comment"></i>
+	<% end %>
+<% end %>
+<hr>
+<% @comments.each do |comment| %>
+	<p>
+		<strong><%= comment.author.f_name %>:</strong>
+		<%= comment.body %>
+		<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_gossip_comment_path(@gossip.id, comment.id) %>
+		<%= link_to '<i class="fa fa-trash"></i>'.html_safe, gossip_comment_path(@gossip.id, comment.id), method: :delete, data: { confirm: "Are you sure ?" } %>
+	</p>
+
+	<% comment.comments.each do |inner_comment| %>
+		<p class="ml-3">
+			<strong><%= inner_comment.author.f_name %>:</strong>
+			<%= inner_comment.body %>
+			<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_comment_comment_path(comment.id, inner_comment.id) %>
+			<%= link_to '<i class="fa fa-trash"></i>'.html_safe, comment_comment_path(comment.id, inner_comment.id), method: :delete, data: { confirm: "Are you sure ?" } %>
+		</p>
+	<% end %>
+
+	<%= form_tag "/comments/#{comment.id}/comments", class: 'ml-3' do %>
+		<% form_authenticity_token %>
+		<%= text_field_tag 'body', nil, placeholder: 'want to reply ?' %>
+		<%= button_tag do %>
+			<i class="fa fa-comments"></i>
+		<% end %>
+	<% end %>
+
+	<hr>
 <% end %>

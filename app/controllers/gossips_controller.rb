@@ -10,7 +10,7 @@ class GossipsController < ApplicationController
 	def show
 		@gossip = Gossip.find(params[:id])
 		@comments = @gossip.comments
-		#@tag = Tag.find(@gossip.tag_id).name
+		@tag = Tag.find(@gossip.tag_id)
 	end
 
 	def new

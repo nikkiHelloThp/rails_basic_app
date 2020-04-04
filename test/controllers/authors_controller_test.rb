@@ -1,19 +1,20 @@
-require 'test_helper'
+# require 'test_helper'
 
-class AuthorsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get authors_new_url
-    assert_response :success
-  end
+# class AuthorsControllerTest < ActionController::TestCase
 
-  test "should get create" do
-    get authors_create_url
-    assert_response :success
-  end
+#   test "should get new" do
+#     get :new
+#     assert_response :success
+#   end
 
-  test "should get destroy" do
-    get authors_destroy_url
-    assert_response :success
-  end
+#   test "should get create" do
+#     post :create
+#     assert_response :success
+#   end
 
-end
+#   test "should get destroy" do
+#     delete(:destroy, params: { author: {email: 'e@mail.com', password: '123456'}})
+#     assert_response :success
+#   end
+
+# end

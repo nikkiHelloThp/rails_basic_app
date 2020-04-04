@@ -1,9 +1,9 @@
-require 'test_helper'
+# require 'test_helper'
 
-class CitiesControllerTest < ActionDispatch::IntegrationTest
-  test "should get show" do
-    get cities_show_url
-    assert_response :success
-  end
+# class CitiesControllerTest < ActionController::TestCase
+#   test "should get show" do
+#     get :show
+#     assert_response :success
+#   end
 
-end
+# end

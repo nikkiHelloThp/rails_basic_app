@@ -1,21 +1,5 @@
 # # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# david:
-#   id: 1
-#   city_id: NULL
-#   f_name: David
-#   l_name: Heinemeier Hansson
-#   description: first description
-#   email: david@email.com
-#   age: 45
-#   password_digest: '123456'
-
-# steve:
-#   id: 2
-#   city_id: NULL
-#   f_name: Steve
-#   l_name: Ross Kellock
-#   description: second description
-#   email: steve@email.com
-#   age: 46
-#   password_digest: '123456'
+one:
+  email: test@email.com
+  password_digest: '123456'

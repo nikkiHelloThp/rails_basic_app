@@ -6,7 +6,7 @@ class AuthorTest < ActiveSupport::TestCase
     assert_not author.save
   end
 
-  test "should save author" do
+  test "should save a valid author" do
 		author = Author.new(email: 'mail@mail.com', password: '000000')
 		assert author.save
 	end

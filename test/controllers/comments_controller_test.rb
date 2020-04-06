@@ -2,7 +2,8 @@
 
 # class CommentsControllerTest < ActionController::TestCase
 #   test "should get new" do
-#   	get :new
+#   	author = Author.find(1)
+#   	get(:new, author)
 #     assert_response :success
 #   end
 

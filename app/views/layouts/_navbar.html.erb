@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls='navbarToggler' aria-expanded='false' aria-label='Toggle navigation'>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <%= link_to "HOME", gossips_path, class: "navbar-brand"%>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-lg-auto">
+      <% if current_user %>
+        <li class="nav-item">
+          <%= link_to "create gossip", new_gossip_path, class: "btn btn-success" %>  
+        </li>
+        <li class="nav-item">
+          <%= link_to "conversations", conversations_path, class: "nav-link" %>  
+        </li>
+        <li class="nav-item">
+          <%= link_to "Log Out", session_path(session.id), method: :delete, class: "nav-link" %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Log In", new_session_path, class: "nav-link" %>  
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

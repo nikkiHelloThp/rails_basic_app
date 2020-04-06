@@ -21,9 +21,9 @@ class LikesController < ApplicationController
 
 	def destroy
 		if logged_in?
-			@like = Gossip.find(params[:gossip_id]).likes.where(author_id: current_user.id).first
-			if @like != nil
-			@like.destroy
+			like = Gossip.find(params[:gossip_id]).likes.where(author_id: current_user.id).first
+			if !like.nil?
+			like.destroy
 			flash[:success] = "like supprime avec success"
 			redirect_to gossips_path
 			end

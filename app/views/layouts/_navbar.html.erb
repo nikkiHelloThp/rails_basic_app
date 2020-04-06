@@ -2,9 +2,12 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls='navbarToggler' aria-expanded='false' aria-label='Toggle navigation'>
     <span class="navbar-toggler-icon"></span>
   </button>
-  <%= link_to "HOME", gossips_path, class: "navbar-brand"%>
+  <%= link_to "gossip project", root_path, class: "navbar-brand"%>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-lg-auto">
+      <li class="nav-item">
+        <%= link_to "HOME", root_path, class: "nav-link"%>
+      </li>
       <% if current_user %>
         <li class="nav-item">
           <%= link_to "create gossip", new_gossip_path, class: "btn btn-success" %>  

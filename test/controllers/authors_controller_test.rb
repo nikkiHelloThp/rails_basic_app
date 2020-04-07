@@ -8,10 +8,10 @@ class AuthorsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    post(:create, params: {author:{email: 'e@mail.com', password: '123456'}})
+    post(:create, params: {author:{email: 'fake@mail.com', password: '123456'}})
     assert_redirected_to gossips_path
 
-    author = Author.new(email: 'e@mail.com', password: '123456')
+    author = Author.new(email: 'fake1@mail.com', password: '123456')
     assert author.save
   end
 

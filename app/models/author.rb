@@ -1,6 +1,8 @@
 class Author < ApplicationRecord
 	attr_accessor :remember_token
 
+	before_save :case_insensitive
+
 	has_secure_password
 
 	belongs_to :city, optional: true
@@ -11,9 +13,14 @@ class Author < ApplicationRecord
 	has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
-	validates :email,
-		presence: true
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\-.]+\.[a-z]+\z/i
 
+	validates :email,
+		presence: true,
+		length: { maximum: 255 },
+		format: { with: VALID_EMAIL_REGEX },
+		uniqueness: { case_sensitive: false }
+		
 	validates :password,
 		presence: true,
 		length: { minimum: 6 }
@@ -54,5 +61,16 @@ class Author < ApplicationRecord
 
 	def forget
 		update_attribute(:remember_digest, nil)
+	end
+
+	def full_name
+		"#{f_name} #{l_name}"
+	end
+
+
+	private
+
+	def case_insensitive
+		self[:email] = email.downcase
 	end
 end

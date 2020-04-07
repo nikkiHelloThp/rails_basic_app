@@ -1,13 +1,61 @@
 require 'test_helper'
-
+ 
 class AuthorTest < ActiveSupport::TestCase
-  test "should not save author without parameters" do
-    author = Author.new
-    assert_not author.save
-  end
 
-  test "should save a valid author" do
-		author = Author.new(email: 'mail@mail.com', password: '000000')
-		assert author.save
+	def setup
+		@author = Author.create(email: 'email@mail.com', password: '000000')
+	end
+
+	test "should be valid" do
+		assert @author.valid?
+	end
+
+	test "email should be present" do
+		@author.email = '   '
+		assert_not @author.valid?
+		assert_equal @author.errors.full_messages[0], "Email can't be blank"
+	end
+
+	test "email should be 255 characters maximum" do
+		@author.email = 'a' * 256
+		assert_not @author.valid?
+	end
+
+	test "email should accept valid addresses" do
+		valid_addresses = %w[user@example.com USER@foo.COM A_US-er@foo.bar.org
+												 first.last@foo.jp alice+bob@baz.cn]
+		valid_addresses.each do |valid_address|
+			@author.email = valid_address
+			assert @author.valid?, "#{valid_address.inspect} should be valid"
+		end
+	end
+
+	test "email should reject invalid addresses" do
+		invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+													 foo@bar_baz.com foo@bar+baz.com]
+		invalid_addresses.each do |invalid_address|
+			@author.email = invalid_address
+			assert_not @author.valid?, "#{invalid_address.inspect} should be invalid"
+		end
+	end
+
+	test "email address should be unique" do
+		duplicate_author = @author.dup
+		duplicate_author.email = @author.email.upcase
+		duplicate_author.save
+		assert_not duplicate_author.valid?
+		assert_equal duplicate_author.errors.full_messages[0], "Email has already been taken"
+	end
+
+	test "password should be present" do
+		@author.password = '   '
+		assert_not @author.valid?
+		assert_equal @author.errors.full_messages[0], "Password can't be blank"
+	end
+
+	test "password should be 6 characters minimum" do
+		@author.password = 'a' * 5
+		assert_not @author.valid?
+		assert_equal @author.errors.full_messages[0], "Password is too short (minimum is 6 characters)"
 	end
 end

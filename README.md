@@ -9,3 +9,11 @@
 - user authentication
 - admin
 - heroku deploy
+
+## Tests
+- controllers
+	test request/response, data render, redirects, messages, conditional(if then redirect else then rerender)
+- models
+	test les cas extremes: classe|objet|methode, validations, CRUD, maybe association
+- views
+	test conditional based rendering, forms(click, fill, find the result somewhere on the page)

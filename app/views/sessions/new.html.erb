@@ -1,3 +1,4 @@
+<h1 class="text-center">Sign in</h1>
 <%= form_tag '/sessions' do %>
 	<% form_authenticity_token %>
 	<%= text_field_tag 'email', nil, placeholder: 'enter your email' %>
@@ -6,4 +7,4 @@
 	<%= submit_tag 'Log in', class: "btn btn-success" %>
 <% end %>
 
-<%= link_to "New account", new_author_path, class: "btn btn-outline-primary" %>
+<%= link_to "No account ?", new_author_path, class: "btn btn-outline-primary" %>

@@ -1,12 +1,11 @@
 class AuthorsController < ApplicationController
+  
   def new
+    @author = Author.new
   end
 
   def create
-  	author = Author.new(
-  						email: params[:email],
-  						password: params[:password]
-  					)
+  	author = Author.new(author_params)
   	if author.save
   		flash[:success] = "Utilisateur cree avec succes!"
   		redirect_to gossips_path
@@ -17,5 +16,12 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
+  end
+
+
+  private
+
+  def author_params
+    params.require(:author).permit(:email, :password)
   end
 end

@@ -13,7 +13,14 @@
 	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, profile_path(@gossip.author_id) %>
 </p>
 
-<div class="row">
+<% if !@gossip.author.city.nil? %>
+	<p>City:
+		<%= @gossip.author.city.name %>
+		<%= link_to '<i class="fa fa-eye"></i>'.html_safe, city_path(@gossip.author.city_id) %>
+	</p>
+<% end %>
+
+<div class="row ml-1 mb-4">
 	<%= button_to gossip_likes_path(@gossip), class: "btn btn-primary" do %>
 		<i class="fa fa-thumbs-up"></i>
 	<% end %>
@@ -23,13 +30,6 @@
 		<% end %>
 	<% end %>
 </div>
-
-<% if !@gossip.author.city.nil? %>
-	<p>City:
-		<%= @gossip.author.city.name %>
-		<%= link_to '<i class="fa fa-eye"></i>'.html_safe, city_path(@gossip.author.city_id) %>
-	</p>
-<% end %>
 
 <h3>Comments</h3>
 <%= form_tag "/gossips/#{@gossip.id}/comments" do %>
@@ -52,12 +52,13 @@
 		<p class="ml-3">
 			<strong><%= inner_comment.author.f_name %>:</strong>
 			<%= inner_comment.body %>
-			<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_comment_comment_path(comment.id, inner_comment.id) %>
-			<%= link_to '<i class="fa fa-trash"></i>'.html_safe, comment_comment_path(comment.id, inner_comment.id), method: :delete, data: { confirm: "Are you sure ?" } %>
+			<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_comment_comment_path(comment.id, inner_comment.id, gossip_id: @gossip) %>
+			<%= link_to '<i class="fa fa-trash"></i>'.html_safe, comment_comment_path(comment.id, inner_comment.id, gossip_id: @gossip.id), method: :delete, data: { confirm: "Are you sure ?" } %>
 		</p>
 	<% end %>
 
 	<%= form_tag "/comments/#{comment.id}/comments", class: 'ml-3' do %>
+		<%= hidden_field_tag 'gossip_id', @gossip.id %>
 		<% form_authenticity_token %>
 		<%= text_field_tag 'body', nil, placeholder: 'want to reply ?' %>
 		<%= button_tag do %>

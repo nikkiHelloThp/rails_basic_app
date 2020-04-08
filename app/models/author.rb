@@ -13,7 +13,7 @@ class Author < ApplicationRecord
 	has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\-.]+\.[a-z]+\z/i
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 	validates :email,
 		presence: true,
@@ -71,6 +71,6 @@ class Author < ApplicationRecord
 	private
 
 	def case_insensitive
-		self[:email] = email.downcase
+		self[:email] = email.downcase!
 	end
 end

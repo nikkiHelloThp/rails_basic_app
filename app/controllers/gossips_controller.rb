@@ -21,7 +21,7 @@ class GossipsController < ApplicationController
 		gossip = current_user.gossips.build(gossip_params)
 		if gossip.save
 			flash[:success] = "Gossip creer avec success!"
-			redirect_to gossips_path
+			redirect_to gossip_path(gossip)
 		else
 			flash.now[:danger] = "#{gossip.errors.full_messages[0]}"
 			render :new
@@ -34,7 +34,7 @@ class GossipsController < ApplicationController
 	def update
 		if @gossip.update(gossip_params)
 			flash[:success] = "Gossip modifie avec success!"
-			redirect_to gossips_path
+			redirect_to gossip_path(@gossip)
 		else
 			flash.now[:danger] = "#{@gossip.errors.full_messages[0]}"
 			render :edit
@@ -54,11 +54,11 @@ class GossipsController < ApplicationController
 	private
 
 	def get_tags
-		@tags ||= Tag.all
+		@tags = Tag.all
 	end
 
 	def set_gossip
-		@gossip ||= Gossip.find(params[:id])
+		@gossip = Gossip.find(params[:id])
 	end
 
 	def gossip_params

@@ -1,24 +1,24 @@
 <h1 class="text-center">Sign up</h1>
-<%= form_for @author, class: "form-group" do |f| %>
-	<% form_authenticity_token %>
-	<div class="row mb-1">
-		<div class="col-3">
-			Email
-			<%= f.text_field 'email', class: 'form-control' %>
-		</div>
-		<div class="col-3">
-			Password
-			<%= f.password_field 'password', class: 'form-control' %>
-		</div>
-		<div class="col-3">
-			Confirm password (To fix => Crash if not identical!)
-			<%= f.password_field 'password_confirmation', class: 'form-control' %>
-		</div>
-		<div class="col-3">
-			<br>
-			<%= f.submit nil, class: "btn btn-outline-success" %>
-		</div>
-	</div>
-<% end %>
 
-<%= link_to "Already an account ?", new_session_path, class: "btn btn-outline-primary" %>
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		
+		<%= form_for @author do |f| %>
+			<% form_authenticity_token %>
+					<%= render 'shared/error_message', record: @author %>
+					<%= f.label :email %>
+					<%= f.text_field :email, class: 'form-control' %>
+
+					<%= f.label :password %>
+					<%= f.password_field :password, class: 'form-control' %>
+
+					<%= f.label :password_confirmation, 'Confirmation' %><!-- Crash if not identical! -->
+					<%= f.password_field :password_confirmation, class: 'form-control' %>
+
+					<%= f.submit nil, class: "btn btn-primary" %>
+		<% end %>
+
+		<%= link_to "Already an account ?", new_session_path, class: "btn btn-outline-primary" %>	
+	</div>
+</div>
+<%# debugger %>

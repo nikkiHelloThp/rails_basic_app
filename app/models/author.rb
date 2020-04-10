@@ -1,7 +1,7 @@
 class Author < ApplicationRecord
 	attr_accessor :remember_token
 
-	before_save :case_insensitive
+	before_save { email.downcase! }
 
 	has_secure_password
 
@@ -65,12 +65,5 @@ class Author < ApplicationRecord
 
 	def full_name
 		"#{f_name} #{l_name}"
-	end
-
-
-	private
-
-	def case_insensitive
-		self[:email] = email.downcase!
 	end
 end

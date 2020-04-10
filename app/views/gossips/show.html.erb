@@ -9,7 +9,7 @@
 	<% end %>
 </p>
 <p>by:
-	<strong><%= @gossip.author.l_name %></strong>
+	<strong><%= @gossip.author.full_name %></strong>
 	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, profile_path(@gossip.author_id) %>
 </p>
 

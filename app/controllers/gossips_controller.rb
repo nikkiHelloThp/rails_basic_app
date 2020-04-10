@@ -29,6 +29,7 @@ class GossipsController < ApplicationController
 	end
 
 	def edit
+		# debugger
 	end
 
 	def update
@@ -59,6 +60,9 @@ class GossipsController < ApplicationController
 
 	def set_gossip
 		@gossip = Gossip.find(params[:id])
+		# rescue ActiveRecord::RecordNotFound => e
+		# 	flash[:notice] = "#{e}"
+		# 	redirect_to root_path
 	end
 
 	def gossip_params

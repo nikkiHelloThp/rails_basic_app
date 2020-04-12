@@ -19,6 +19,5 @@
 	test conditional based rendering, forms(click, fill, find the result somewhere on the page)
 
 ## Todo
-	HOME page
 	name instead of f_name l_name, validation, add to form
 	

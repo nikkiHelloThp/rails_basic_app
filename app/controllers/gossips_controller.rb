@@ -69,13 +69,6 @@ class GossipsController < ApplicationController
 		params.require(:gossip).permit(:title, :body, :tag_id)
 	end
 
-	def authenticate_user
-		unless current_user
-			flash[:danger] = "Connectez-vous d'abord!"
-			redirect_to new_session_path
-		end
-	end
-
 	def authenticate_creator
 		@gossip = Gossip.find(params[:id])
 		unless current_user == @gossip.author

@@ -7,8 +7,8 @@ class AuthorsController < ApplicationController
   def create
   	@author = Author.new(author_params)
   	if @author.save
-  		flash[:success] = "Utilisateur cree avec succes!"
-  		redirect_to gossips_path
+  		flash[:success] = "Account successfully created"
+  		redirect_to profile_url(@author)
   	else
   		render :new
   	end

@@ -37,6 +37,7 @@ group :test do
   gem 'mini_backtrace', '~> 0.1.3'
   gem 'guard', '~> 2.16', '>= 2.16.2'
   gem 'guard-minitest', '~> 2.4', '>= 2.4.6'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.4'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

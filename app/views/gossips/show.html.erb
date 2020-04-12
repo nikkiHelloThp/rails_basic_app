@@ -9,7 +9,7 @@
 	<% end %>
 </p>
 <p>by:
-	<strong><%= @gossip.author.full_name %></strong>
+	<strong><%= @gossip.author.name %></strong>
 	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, profile_path(@gossip.author_id) %>
 </p>
 
@@ -42,7 +42,7 @@
 <hr>
 <% @comments.each do |comment| %>
 	<p>
-		<strong><%= comment.author.f_name %>:</strong>
+		<strong><%= comment.author.name %>:</strong>
 		<%= comment.body %>
 		<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_gossip_comment_path(@gossip.id, comment.id) %>
 		<%= link_to '<i class="fa fa-trash"></i>'.html_safe, gossip_comment_path(@gossip.id, comment.id), method: :delete, data: { confirm: "Are you sure ?" } %>
@@ -50,7 +50,7 @@
 
 	<% comment.comments.each do |inner_comment| %>
 		<p class="ml-3">
-			<strong><%= inner_comment.author.f_name %>:</strong>
+			<strong><%= inner_comment.author.name %>:</strong>
 			<%= inner_comment.body %>
 			<%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_comment_comment_path(comment.id, inner_comment.id, gossip_id: @gossip) %>
 			<%= link_to '<i class="fa fa-trash"></i>'.html_safe, comment_comment_path(comment.id, inner_comment.id, gossip_id: @gossip.id), method: :delete, data: { confirm: "Are you sure ?" } %>

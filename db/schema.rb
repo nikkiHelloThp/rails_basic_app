@@ -16,11 +16,10 @@ ActiveRecord::Schema.define(version: 2020_04_07_154446) do
   enable_extension "plpgsql"
 
   create_table "authors", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "city_id"
-    t.string "f_name"
-    t.string "l_name"
     t.text "description"
     t.string "email"
     t.integer "age"

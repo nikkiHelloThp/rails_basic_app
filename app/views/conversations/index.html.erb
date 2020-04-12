@@ -10,7 +10,7 @@
 		    <% else %>
 		      <% recipient = Author.find(conversation.sender_id) %>
 		    <% end %>
-		    <p><%= link_to recipient.f_name, conversation_private_messages_path(conversation)%></p>
+		    <p><%= link_to recipient.name, conversation_private_messages_path(conversation)%></p>
 		   <% end %>
 	   <% end %>
 	  </div>
@@ -23,7 +23,7 @@
 	   <% @authors.each do |author| %>
 	    <% if author.id != current_user.id %>
 	     <div class=”item”>
-			   <%= author.id %> <%= author.f_name %> <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: author.id), method: :post%>
+			   <%= author.id %> <%= author.name %> <%= link_to "Message me!", conversations_path(sender_id: current_user.id, recipient_id: author.id), method: :post%>
 			 </div>
 	  	<% end %>
 	 	 <% end %>

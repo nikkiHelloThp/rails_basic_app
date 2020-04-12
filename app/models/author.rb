@@ -13,6 +13,9 @@ class Author < ApplicationRecord
 	has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
+	validates :name,
+		presence: true
+
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
 	validates :email,
@@ -29,12 +32,6 @@ class Author < ApplicationRecord
 	# 	presence: true
 
 	# validates :description,
-	# 	presence: true
-
-	# validates :f_name,
-	# 	presence: true
-	
-	# validates :l_name,
 	# 	presence: true
 
 	class << self
@@ -61,9 +58,5 @@ class Author < ApplicationRecord
 
 	def forget
 		update_attribute(:remember_digest, nil)
-	end
-
-	def full_name
-		"#{f_name} #{l_name}"
 	end
 end

@@ -17,3 +17,7 @@
 	test les cas extremes: classe|objet|methode, validations, CRUD, maybe association
 - views
 	test conditional based rendering, forms(click, fill, find the result somewhere on the page)
+
+
+## Todo
+- use Sanitize instead of html_safe

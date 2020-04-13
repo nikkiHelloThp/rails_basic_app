@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
 		else
 			flash.now[:danger] = "#{comment.errors.full_messages[0]}"
 		end
-		redirect_to gossip_path(@gossip)
+		redirect_to gossip_url(@gossip)
 	end
 
 	def edit
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
 	def update
 		if @comment.update(body: params[:body])
 			flash[:success] = "Commentaire modifie avec success!"
-			redirect_to gossip_path(@gossip)
+			redirect_to gossip_url(@gossip)
 		else
 			flash.now[:danger] = "#{@comment.errors.full_messages[0]}"
 			render :edit
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
 	def destroy
 		if @comment.destroy
 			flash[:success] = "Commentaire supprime avec success!"
-			redirect_to gossip_path(@gossip)
+			redirect_to gossip_url(@gossip)
 		else
 			flash.now[:danger] = "#{@comment.errors.full_messages[0]}"
 			render :delele

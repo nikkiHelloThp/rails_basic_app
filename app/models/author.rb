@@ -13,8 +13,12 @@ class Author < ApplicationRecord
 	has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
+	VALID_NAME_REGEX = /\A[a-zA-Z .,'-]+\z/
+
 	validates :name,
-		presence: true
+		presence: true,
+		length: { minimum: 6 },
+		format: { with: VALID_NAME_REGEX }
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
@@ -27,12 +31,6 @@ class Author < ApplicationRecord
 	validates :password,
 		presence: true,
 		length: { minimum: 6 }
-
-	# validates :age,
-	# 	presence: true
-
-	# validates :description,
-	# 	presence: true
 
 	class << self
 		def digest(string)

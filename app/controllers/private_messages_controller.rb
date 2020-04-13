@@ -28,7 +28,7 @@ class PrivateMessagesController < ApplicationController
 	def create
 		@private_message = @conversation.private_messages.new(private_message_params)
 		if @private_message.save
-			redirect_to conversation_private_messages_path(@conversation)
+			redirect_to conversation_private_messages_url(@conversation)
 		end
 	end
 

@@ -21,7 +21,7 @@ class GossipsController < ApplicationController
 		gossip = current_user.gossips.build(gossip_params)
 		if gossip.save
 			flash[:success] = "Gossip creer avec success!"
-			redirect_to gossip_path(gossip)
+			redirect_to gossip_url(gossip)
 		else
 			flash.now[:danger] = "#{gossip.errors.full_messages[0]}"
 			render :new
@@ -35,7 +35,7 @@ class GossipsController < ApplicationController
 	def update
 		if @gossip.update(gossip_params)
 			flash[:success] = "Gossip modifie avec success!"
-			redirect_to gossip_path(@gossip)
+			redirect_to gossip_url(@gossip)
 		else
 			flash.now[:danger] = "#{@gossip.errors.full_messages[0]}"
 			render :edit
@@ -45,7 +45,7 @@ class GossipsController < ApplicationController
 	def destroy
 		if @gossip.destroy
 			flash[:success] = "Gossip supprime avec success!"
-			redirect_to gossips_path
+			redirect_to gossips_url
 		else
 			flash.now[:danger] = "#{@gossip.errors.full_messages[0]}"
 		end
@@ -73,7 +73,7 @@ class GossipsController < ApplicationController
 		@gossip = Gossip.find(params[:id])
 		unless current_user == @gossip.author
 			flash[:danger] = "Cette action n'est pas disponible!"
-			redirect_to gossip_path
+			redirect_to gossip_url
 		end
 	end
 

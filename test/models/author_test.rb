@@ -10,6 +10,36 @@ class AuthorTest < ActiveSupport::TestCase
 		assert @author.valid?
 	end
 
+	test "name should be present" do
+		@author.name = '   '
+		assert_not @author.valid?
+		assert_equal @author.errors.full_messages[0], "Name can't be blank"
+	end
+
+	test "name should be 6 characters minimum" do
+		@author.name = 'a' * 5
+		assert_not @author.valid?, "#{@author.errors.full_messages}"
+		assert_equal @author.errors.full_messages[0], "Name is too short (minimum is 6 characters)"
+	end
+
+	test "name should accept valid characters" do
+		valid_names = ["Mathias d'Arras","Dr. Martin Luther King, Jr.",
+									 "Hector Sausage-Hausen"]
+		valid_names.each do |valid_name|
+			@author.name = valid_name
+			assert @author.valid?
+		end
+	end
+
+	test "name should reject invalid characters" do
+		invalid_names = ["Fatty Mc.Error$", "FA!L", "#arold Newm@n",
+										 "N4m3 w1th Numb3r5"]
+		invalid_names.each do |invalid_name|
+			@author.name = invalid_name
+			assert_not @author.valid?
+		end
+	end
+
 	test "email should be present" do
 		@author.email = '   '
 		assert_not @author.valid?
@@ -64,5 +94,9 @@ class AuthorTest < ActiveSupport::TestCase
 		@author.password = 'a' * 5
 		assert_not @author.valid?
 		assert_equal @author.errors.full_messages[0], "Password is too short (minimum is 6 characters)"
+	end
+
+	test "authenticated? should return false with a nil digest" do
+		assert_not @author.authenticated?('')
 	end
 end

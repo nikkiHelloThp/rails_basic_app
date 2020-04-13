@@ -12,7 +12,7 @@ class LikesController < ApplicationController
 						 )
 			if like.save
 				flash[:success] = "like creer avec success!"
-				redirect_to gossips_path
+				redirect_to gossips_url
 			end
 		else
 			flash.now[:danger] = "connexion requise avant de liker"
@@ -25,7 +25,7 @@ class LikesController < ApplicationController
 			if !like.nil?
 			like.destroy
 			flash[:success] = "like supprime avec success"
-			redirect_to gossips_path
+			redirect_to gossips_url
 			end
 		end
 	end

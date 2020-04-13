@@ -32,8 +32,9 @@ class AuthorSignupTest < ActionDispatch::IntegrationTest
   																					}
   																}
   	end
+    assert is_logged_in?
   	follow_redirect!
   	assert_template 'profiles/show'
-    assert flash[:success], "Account successfully created" 
+    assert_not flash.empty?
   end
 end

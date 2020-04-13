@@ -3,12 +3,12 @@
 		<% form_authenticity_token %>
 		<%= hidden_field_tag 'gossip_id', params[:gossip_id] %>
 		<%= text_field_tag 'body', nil, placeholder: @comment.body %>
-		<%= submit_tag 'valider', class: "btn btn-success" %>
+		<%= submit_tag 'valider', class: "btn btn-primary" %>
 	<% end %>
 <% elsif params[:gossip_id] %>
 	<%= form_tag gossip_comment_path, method: :put do %>
 		<% form_authenticity_token %>
 		<%= text_field_tag 'body', nil, placeholder: @comment.body %>
-		<%= submit_tag 'valider', class: "btn btn-success" %>
+		<%= submit_tag 'valider', class: "btn btn-primary" %>
 	<% end %>
 <% end %>

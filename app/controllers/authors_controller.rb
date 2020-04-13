@@ -7,6 +7,7 @@ class AuthorsController < ApplicationController
   def create
   	@author = Author.new(author_params)
   	if @author.save
+      log_in @author
   		flash[:success] = "Account successfully created"
   		redirect_to profile_url(@author)
   	else

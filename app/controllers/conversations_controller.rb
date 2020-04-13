@@ -10,7 +10,7 @@ class ConversationsController < ApplicationController
 		else
 			@conversation = Conversation.create(conversation_params)
 		end
-		redirect_to conversation_private_messages_path(@conversation)
+		redirect_to conversation_private_messages_url(@conversation)
 	end
 
 

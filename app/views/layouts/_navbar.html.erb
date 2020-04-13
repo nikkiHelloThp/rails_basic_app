@@ -8,16 +8,27 @@
       <li class="nav-item">
         <%= link_to "HOME", root_path, class: "nav-link"%>
       </li>
-      <% if current_user %>
+      <% if logged_in? %>
         <li class="nav-item">
           <%= link_to "create gossip", new_gossip_path, class: "btn btn-primary" %>  
         </li>
         <li class="nav-item">
           <%= link_to "conversations", conversations_path, class: "nav-link" %>  
         </li>
-        <li class="nav-item">
-          <%= link_to "Log Out", session_path(session.id), method: :delete, class: "nav-link" %>
-        </li>
+        
+        <div class="dropdown show">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <%= link_to "Profile", profile_path(current_user), class: "dropdown-item"%>
+            <a class="dropdown-item" href="#">Settings</a>
+            <div class="dropdown-divider"></div>
+            <%= link_to "Log out", session_path(current_user), method: :delete, class: "dropdown-item"%>
+          </div>
+        </div>
+      
       <% else %>
         <li class="nav-item">
           <%= link_to "Log In", new_session_path, class: "nav-link" %>  

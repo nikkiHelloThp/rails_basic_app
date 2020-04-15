@@ -10,7 +10,7 @@
 </p>
 <p>by:
 	<strong><%= @gossip.author.name %></strong>
-	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, profile_path(@gossip.author_id) %>
+	<%= link_to '<i class="fa fa-eye"></i>'.html_safe, author_path(@gossip.author_id) %>
 </p>
 
 <% if !@gossip.author.city.nil? %>

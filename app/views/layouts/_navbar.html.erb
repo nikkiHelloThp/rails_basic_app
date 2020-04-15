@@ -22,7 +22,7 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <%= link_to "Profile", profile_path(current_user), class: "dropdown-item"%>
+            <%= link_to "Profile", author_path(current_user), class: "dropdown-item"%>
             <a class="dropdown-item" href="#">Settings</a>
             <div class="dropdown-divider"></div>
             <%= link_to "Log out", session_path(current_user), method: :delete, class: "dropdown-item"%>

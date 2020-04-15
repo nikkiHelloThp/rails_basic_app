@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :authors,  only: [:new, :create, :destroy]
+  resources :authors,  except: [:index]
   resources :sessions, only: [:new, :create, :destroy]
   
   resources :gossips do
@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   end
   
   resources :cities,   only: :show
-  resources :profiles, only: :show
   
   get 'contact',       to: 'static_pages#contact'
   get 'team',          to: 'static_pages#team'

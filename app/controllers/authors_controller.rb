@@ -1,5 +1,9 @@
 class AuthorsController < ApplicationController
   
+  def show
+    @author = Author.find(params[:id])
+  end
+  
   def new
     @author = Author.new
   end
@@ -9,7 +13,7 @@ class AuthorsController < ApplicationController
   	if @author.save
       log_in @author
   		flash[:success] = "Account successfully created"
-  		redirect_to profile_url(@author)
+  		redirect_to @author
   	else
   		render :new
   	end

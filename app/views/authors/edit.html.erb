@@ -1,0 +1,30 @@
+<h1 class="text-center">Update your profile</h1>
+
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		
+		<%= form_for @author do |f| %>
+			<% form_authenticity_token %>
+					<%= render 'shared/error_messages', record: @author %>
+					<%= f.label :name %>
+					<%= f.text_field :name, class: 'form-control' %>
+
+					<%= f.label :email %>
+					<%= f.text_field :email, class: 'form-control' %>
+
+					<%= f.label :password %>
+					<%= f.password_field :password, class: 'form-control' %>
+
+					<%= f.label :password_confirmation, 'Confirmation' %><!-- Crash if not identical! -->
+					<%= f.password_field :password_confirmation, class: 'form-control' %>
+
+					<%= f.submit "Save changes", class: "btn btn-primary" %>
+		<% end %>
+
+		<div class="gravatar_edit">
+			<%= gravatar_for @author %>
+			<a href="http://www.gravatar.com/email" target="_blank">change</a>
+		</div>
+	</div>
+</div>
+<%# debugger %>

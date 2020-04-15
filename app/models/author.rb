@@ -30,7 +30,8 @@ class Author < ApplicationRecord
 		
 	validates :password,
 		presence: true,
-		length: { minimum: 6 }
+		length: { minimum: 6 },
+		on: :create # or, allow_blank: true
 
 	class << self
 		def digest(string)

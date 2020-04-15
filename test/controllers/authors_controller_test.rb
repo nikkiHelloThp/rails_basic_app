@@ -2,26 +2,13 @@ require 'test_helper'
 
 class AuthorsControllerTest < ActionController::TestCase
 
+  def setup
+    @user       = authors(:one)
+    @other_user = authors(:two)
+  end
+
   test "should get show" do
-    get :show, params: {id: Author.last.id}
-    assert_response :success
-  end
-
-  test "should get create" do
-    post(:create, params: { author: 
-                            { name: 'Harry Potter', 
-                              email: 'fake@mail.com', 
-                              password: '123456'
-                            }
-                          })
-    
-
-    author = Author.new(name: 'Ron Wisley',email: 'fake1@mail.com', password: '123456')
-    assert author.save
-  end
-
-  test "should get destroy" do
-    delete :destroy, params: {id: 1}
+    get :show, params: { id: @user }
     assert_response :success
   end
 
@@ -30,14 +17,56 @@ class AuthorsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # test "should get edit" do
-  #   get :edit, params: {id:Author.last.id}
-  #   assert_response :success
-  # end
+  test "should get create" do
+    post(:create, params: { author: 
+                            { name:     'Harry Potter', 
+                              email:    'fake@mail.com', 
+                              password: '123456'
+                            }
+                          })
+    
 
-  # test "should update author" do
-  #   patch :update, params: {id: Author.last.id}
-  #   assert_response :success
-  # end
+    author = Author.new(name:     'Ron Wisley',
+                        email:    'fake1@mail.com',
+                        password: '123456')
+    assert author.save
+  end
+
+  test "should get destroy" do
+    delete :destroy, params: { id: @user }
+    assert_response :success
+  end
+
+  test "should redirect edit when not logged in" do
+    get :edit, params: { id: @user }
+    assert_not flash.empty?
+    assert_redirected_to new_session_url
+  end
+
+  test "should redirect update when not logged in" do
+    patch :update, params: { id: @user,
+                             author: { email:    @user.email,
+                                       password: @user.password }
+                            }
+    assert_not flash.empty?
+    assert_redirected_to new_session_url
+  end
+
+  test "should redirect edit when logged in as wrong user" do
+    log_in_as(@other_user)
+    get :edit, params: { id: @user }
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  test "should redirect update when logged in as wrong user" do
+    log_in_as(@other_user)
+    patch :update, params: { id: @user,
+                             author: { email:    @user.email,
+                                       password: @user.password }
+                            }
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
 
 end

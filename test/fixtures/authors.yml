@@ -2,3 +2,8 @@ one:
   name: Mr. Robot
   email: test@example.com
   password_digest: <%= Author.digest('123456') %>
+
+two: 
+  name: T-800
+  email: terminator@example.com
+  password_digest: <%= Author.digest('123456') %>

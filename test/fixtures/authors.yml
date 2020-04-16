@@ -2,8 +2,16 @@ one:
   name: Mr. Robot
   email: test@example.com
   password_digest: <%= Author.digest('123456') %>
+  admin: true
 
 two: 
   name: T-800
   email: terminator@example.com
   password_digest: <%= Author.digest('123456') %>
+
+<% 3.upto(40) do |n| %>
+test_<%= n %>:
+  name: <%= "author #{n}" %>
+  email: <%= "author-#{n}@example.com" %>
+  password_digest: <%= Author.digest('123456') %>
+<% end %>

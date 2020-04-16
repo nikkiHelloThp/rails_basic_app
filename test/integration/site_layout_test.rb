@@ -11,6 +11,6 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
 	test "the team page" do
   	get "/team"
-  	assert_select 'h1', "The team"
+  	assert_select 'h1', "The team 😉"
 	end
 end

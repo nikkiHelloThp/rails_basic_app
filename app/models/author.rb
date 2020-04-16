@@ -7,10 +7,10 @@ class Author < ApplicationRecord
 
 	belongs_to :city, optional: true
 
-	has_many :gossips, dependent: :destroy
+	has_many :gossips, 										dependent: :destroy
 	has_many :comments, as: :commentable, dependent: :destroy
-	has_many :likes, dependent: :destroy
-	has_many :sent_messages, foreign_key: 'sender_id', class_name: "PrivateMessage"
+	has_many :likes, 											dependent: :destroy
+	has_many :sent_messages, 		 foreign_key: 'sender_id', 		class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
 	VALID_NAME_REGEX = /\A[a-zA-Z .,'-]+\z/
@@ -24,8 +24,8 @@ class Author < ApplicationRecord
 
 	validates :email,
 		presence: true,
-		length: { maximum: 255 },
-		format: { with: VALID_EMAIL_REGEX },
+		length: 		{ maximum: 255 },
+		format: 		{ with: VALID_EMAIL_REGEX },
 		uniqueness: { case_sensitive: false }
 		
 	validates :password,

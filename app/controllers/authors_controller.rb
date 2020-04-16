@@ -1,8 +1,13 @@
 class AuthorsController < ApplicationController
   
-  before_action :logged_in_user?, only: [:edit, :update]
+  before_action :logged_in_user?, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,    only: [:edit, :update]
+  before_action :admin_user,      only: :destroy
   
+  def index
+    @authors = Author.paginate(page: params[:page])
+  end
+
   def show
     @author = Author.find(params[:id])
   end
@@ -23,6 +28,9 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
+    Author.find(params[:id]).destroy
+    flash[:success] = "Author deleted"
+    redirect_to authors_url
   end
 
   def edit
@@ -57,5 +65,9 @@ class AuthorsController < ApplicationController
     def correct_user
       @author = Author.find(params[:id])
       redirect_to(root_url) unless current_user?(@author)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end

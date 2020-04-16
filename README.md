@@ -21,3 +21,5 @@
 ## Todo
 - test access controllers !
 - security
+
+- gemfile, gems environment

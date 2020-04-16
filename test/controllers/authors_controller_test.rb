@@ -7,6 +7,11 @@ class AuthorsControllerTest < ActionController::TestCase
     @other_user = authors(:two)
   end
 
+  test "should redirect index when not logged in" do
+    get :index
+    assert_redirected_to new_session_url
+  end
+
   test "should get show" do
     get :show, params: { id: @user }
     assert_response :success
@@ -30,11 +35,6 @@ class AuthorsControllerTest < ActionController::TestCase
                         email:    'fake1@mail.com',
                         password: '123456')
     assert author.save
-  end
-
-  test "should get destroy" do
-    delete :destroy, params: { id: @user }
-    assert_response :success
   end
 
   test "should redirect edit when not logged in" do
@@ -69,4 +69,25 @@ class AuthorsControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test "should redirect destroy when not logged in" do
+    assert_no_difference "Author.count" do
+      delete :destroy, params: { id: @user }
+    end
+    assert_redirected_to new_session_url
+  end
+
+  test "should redirect destroy when logged in as a non-admin" do
+    log_in_as(@other_user)
+    assert_no_difference "Author.count" do
+      delete :destroy, params: { id: @user }
+    end
+    assert_redirected_to root_url
+  end
+
+  test "should get destroy" do
+    log_in_as(@user)
+    delete :destroy, params: { id: @other_user }
+    assert_not flash.empty?
+    assert_redirected_to authors_url
+  end
 end

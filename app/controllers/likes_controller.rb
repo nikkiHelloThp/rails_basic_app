@@ -1,8 +1,6 @@
 class LikesController < ApplicationController
 
 	def create
-		# find_by est peut etre meileur
-
 		if logged_in? && Gossip.find(params[:gossip_id]).likes.map { |like| like.author_id }.include?(current_user.id)
 			flash.now[:danger] = "Vous avez deja liker ce gossip"
 		elsif logged_in?
@@ -29,9 +27,4 @@ class LikesController < ApplicationController
 			end
 		end
 	end
-
-
-	private
-
-	# attention la methode create a 2 fois la condition logged_in? donc peut etre un before_action :check_log_in serait plus adapte
 end

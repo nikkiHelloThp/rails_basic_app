@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :authors,  except: [:index]
+  resources :authors
   resources :sessions, only: [:new, :create, :destroy]
   
   resources :gossips do

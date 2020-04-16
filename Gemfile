@@ -17,6 +17,7 @@ gem 'table_print', '~> 1.5', '>= 1.5.6'
 gem 'pry', '~> 0.12.2'
 gem 'faker', '~> 2.2', '>= 2.2.1'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

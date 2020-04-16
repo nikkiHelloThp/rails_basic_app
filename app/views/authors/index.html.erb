@@ -1,0 +1,13 @@
+<h1>All users</h1>
+
+<div class="digg_pagination">
+<%= will_paginate %>
+</div>
+
+<ul class="authors">
+	<%= render @authors %> <!-- shorthand for @author.each do |author|; render partial 'author', author: author; end -->
+</ul>
+
+<div class="digg_pagination">
+<%= will_paginate %>
+</div>

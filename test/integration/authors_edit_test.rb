@@ -30,7 +30,9 @@ class AuthorsEditTest < ActionDispatch::IntegrationTest
 
   test "when valid update information with friendly forwarding" do
     get edit_author_path(@user)
+    forwarding_url = session[:forwarding_url]
     log_in_as(@user, {remember_me: '0'})
+    assert_equal forwarding_url, edit_author_url(@user)
     assert_redirected_to edit_author_path(@user)
     name = 'Alex kid'
     email = 'alexkid@example.com'

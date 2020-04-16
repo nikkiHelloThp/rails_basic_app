@@ -22,7 +22,17 @@ puts "All PrivateMessages have been destroyed!"
 	puts "city #{city.name} created!"
 end
 
-3.times do
+Author.create!(
+					   name: Faker::Name.name,
+					   description: Faker::Lorem.sentence,
+					   email: Faker::Internet.email,
+					   age: rand(18..35),
+					   password: "123456",
+						 city_id: City.all.ids.sample,
+						 admin: true
+					 )
+
+99.times do
 	author = Author.create(
 					   name: Faker::Name.name,
 					   description: Faker::Lorem.sentence,
@@ -85,7 +95,7 @@ end
 	puts "Conversation #{conversation.sender_id} created!"
 end
 
-30.times do
+20.times do
 	private_message = PrivateMessage.create(
 											body: Faker::Lorem.sentence,
 											conversation_id: Conversation.all.ids.sample,

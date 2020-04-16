@@ -5,19 +5,7 @@
 		
 		<%= form_for @author do |f| %>
 			<% form_authenticity_token %>
-					<%= render 'shared/error_messages', record: @author %>
-					<%= f.label :name %>
-					<%= f.text_field :name, class: 'form-control' %>
-
-					<%= f.label :email %>
-					<%= f.text_field :email, class: 'form-control' %>
-
-					<%= f.label :password %>
-					<%= f.password_field :password, class: 'form-control' %>
-
-					<%= f.label :password_confirmation, 'Confirmation' %><!-- Crash if not identical! -->
-					<%= f.password_field :password_confirmation, class: 'form-control' %>
-
+					<%= render 'fields', f: f %>
 					<%= f.submit "Save changes", class: "btn btn-primary" %>
 		<% end %>
 

@@ -4,12 +4,14 @@ class AuthorSignupTest < ActionDispatch::IntegrationTest
   test "invalid signup informations" do
     get new_author_path
     assert_no_difference "Author.count" do
-	    post authors_path, params: { author: { name:       'Walter Sobchak',
-                                             email: 		 'author@invalid',
-	    														 					 password: 							'foo',
-	    														 					 password_confirmation: 'bar'
-	    														 				  }
-	    														}
+	    post authors_path, params: {
+                           author: {
+                             name:       'Walter Sobchak',
+                             email: 		 'author@invalid',
+	    											 password: 							'foo',
+	    						 					 password_confirmation: 'bar',
+	    										 }
+	    									 }
 		end
     assert_template 'authors/new'
     assert_select "div#error_explanation" do
@@ -25,12 +27,14 @@ class AuthorSignupTest < ActionDispatch::IntegrationTest
   test "valid signup informations" do
   	get new_author_path
   	assert_difference "Author.count", 1 do
-  		post authors_path, params: { author: { name:        'Duke Lebowski',
-                                             email: 			'author@valid.com',
-  																					 password: 							'foobar',
-  																					 password_confirmation: 'foobar'
-  																					}
-  																}
+  		post authors_path, params: {
+                           author: {
+                             name:        'Duke Lebowski',
+                             email: 			'author@valid.com',
+                          	 password: 							'foobar',
+  													 password_confirmation: 'foobar',
+  												 }
+  											 }
   	end
   	follow_redirect!
   	assert_template 'authors/show'

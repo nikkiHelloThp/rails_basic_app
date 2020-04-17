@@ -49,7 +49,7 @@ class AuthorsController < ApplicationController
   private
 
     def author_params
-      params.require(:author).permit(:name, :email, :password, :password_confirmation) # test :admin
+      params.require(:author).permit(:name, :email, :password, :password_confirmation)
     end
 
     # before_filters

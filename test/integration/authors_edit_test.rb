@@ -9,12 +9,14 @@ class AuthorsEditTest < ActionDispatch::IntegrationTest
     log_in_as(@user, {remember_me: '0'}) # must be logged in to access edit
     get edit_author_path(@user)
     assert_template 'authors/edit'
-    patch author_path(@user), params: { author: { name: '',
-      																						email: '',
-      																						password: '',
-      																						password_confirmation: ''
-    																						}
-    																	}
+    patch author_path(@user), params: {
+                                author: {
+                                  name: '',
+      														email: '',
+      														password: '',
+      														password_confirmation: '',
+    														}
+    													}
   	assert_template 'authors/edit'
   	assert_select "div#error_explanation" do
   		assert_select "p", "The form contains 5 errors"
@@ -30,19 +32,21 @@ class AuthorsEditTest < ActionDispatch::IntegrationTest
 
   test "when valid update information with friendly forwarding" do
     get edit_author_path(@user)
-    forwarding_url = session[:forwarding_url]
+    assert_not_nil session[:forwarding_url]
     log_in_as(@user, {remember_me: '0'})
-    assert_equal forwarding_url, edit_author_url(@user)
     assert_redirected_to edit_author_path(@user)
     name = 'Alex kid'
     email = 'alexkid@example.com'
-    patch author_path(@user), params: { author: { name:  name,
-      																						email: email,
-      																						password: '',
-      																						password_confirmation: ''
-    																						}
-    																	}
+    patch author_path(@user), params: {
+                                author: {
+                                  name:  name,
+      														email: email,
+      														password: '',
+      														password_confirmation: '',
+  															}
+    													}
     assert_redirected_to @user # == follow_redirect! + assert_template 'authors/show'
+    assert_nil session[:forwarding_url]
     assert_not flash.empty?
     @user.reload
     assert_equal @user.name,  name

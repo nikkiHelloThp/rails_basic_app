@@ -23,13 +23,13 @@ class AuthorsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    post(:create, params: { author: 
-                            { name:     'Harry Potter', 
-                              email:    'fake@mail.com', 
-                              password: '123456'
-                            }
-                          })
-    
+    post :create, params: { 
+                    author: {
+                      name:     'Harry Potter', 
+                      email:    'fake@mail.com', 
+                      password: '123456',
+                    }
+                  }
 
     author = Author.new(name:     'Ron Wisley',
                         email:    'fake1@mail.com',
@@ -45,9 +45,11 @@ class AuthorsControllerTest < ActionController::TestCase
 
   test "should redirect update when not logged in" do
     patch :update, params: { id: @user,
-                             author: { email:    @user.email,
-                                       password: @user.password }
-                            }
+                             author: { 
+                               email:    @user.email,
+                               password: @user.password,
+                             }
+                           }
     assert_not flash.empty?
     assert_redirected_to new_session_url
   end
@@ -62,9 +64,11 @@ class AuthorsControllerTest < ActionController::TestCase
   test "should redirect update when logged in as wrong user" do
     log_in_as(@other_user)
     patch :update, params: { id: @user,
-                             author: { email:    @user.email,
-                                       password: @user.password }
-                            }
+                             author: {
+                               email:    @user.email,
+                               password: @user.password,
+                             }
+                           }
     assert flash.empty?
     assert_redirected_to root_url
   end
@@ -73,13 +77,15 @@ class AuthorsControllerTest < ActionController::TestCase
     log_in_as(@other_user)
     assert_not @other_user.admin?
     patch :update, params: { id: @other_user,
-                             author: { email:    @other_user.email,
-                                       password: @other_user.password,
-                                       admin:    true#@other_user.toggle!(:admin)
-                                      }
-                            }
-    skip "!!! admin strong params not working !!!"
-    assert @other_user.admin?, "#{@other_user.inspect}" # skipped
+                             author: {
+                               name: 'Rick Sanchez',
+                               email: 'rick@morty.com',
+                               password: 'password',
+                               password_confirmation: 'password',
+                               admin: true,
+                             }
+                           }
+    assert_not @other_user.reload.admin?
   end
 
   test "should redirect destroy when not logged in" do

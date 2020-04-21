@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class AuthorSignupTest < ActionDispatch::IntegrationTest
+  
+  def setup
+    # clear needed, .size not reset for each test
+    ActionMailer::Base.deliveries.clear
+  end
+
   test "invalid signup informations" do
     get new_author_path
     assert_no_difference "Author.count" do
@@ -36,7 +42,22 @@ class AuthorSignupTest < ActionDispatch::IntegrationTest
   												 }
   											 }
   	end
-  	follow_redirect!
+  	assert_equal 1, ActionMailer::Base.deliveries.size
+    author = assigns(:author)
+    assert_not author.activated?
+    # try to log in before activation
+    log_in_as(author)
+    assert_not is_logged_in?
+    # Invalid activation token
+    get edit_account_activation_path("invalid token")
+    assert_not is_logged_in?
+    # invalid activation email
+    get edit_account_activation_path(author.activation_token, email: "wrong@email")
+    assert_not is_logged_in?
+    # valid activation email-token
+    get edit_account_activation_path(author.activation_token, email: author.email)
+    assert author.reload.activated?
+    follow_redirect!
   	assert_template 'authors/show'
     assert is_logged_in?
     assert_not flash.empty?

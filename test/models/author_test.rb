@@ -3,7 +3,11 @@ require 'test_helper'
 class AuthorTest < ActiveSupport::TestCase
 
 	def setup
-		@author = Author.new(name: 'Dumbledore', email: 'email@mail.com', password: '000000')
+		@author = Author.new(
+								name: 'Dumbledore',
+								email: 'email@mail.com',
+								password: '000000',
+							)
 	end
 
 	test "should be valid" do
@@ -97,6 +101,6 @@ class AuthorTest < ActiveSupport::TestCase
 	end
 
 	test "authenticated? should return false with a nil digest" do
-		assert_not @author.authenticated?('')
+		assert_not @author.authenticated?(:remember, '')
 	end
 end

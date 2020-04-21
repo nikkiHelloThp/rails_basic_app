@@ -1,0 +1,5 @@
+Hi <%= @author.name %>,
+
+Welcome to the gossip app! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@author.activation_token, email: @author.email) %>

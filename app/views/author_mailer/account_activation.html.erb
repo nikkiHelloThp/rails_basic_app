@@ -1,0 +1,7 @@
+<h1>Gossip app</h1>
+
+<p>Hi <%= @author.name %>,</p>
+
+<p>Welcome to the gossip app! Click on the link below to activate your account:</p>
+
+<%= link_to 'Activate', edit_account_activation_url(@author.activation_token, email: @author.email) %>

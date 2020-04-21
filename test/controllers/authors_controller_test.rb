@@ -31,9 +31,11 @@ class AuthorsControllerTest < ActionController::TestCase
                     }
                   }
 
-    author = Author.new(name:     'Ron Wisley',
-                        email:    'fake1@mail.com',
-                        password: '123456')
+    author = Author.new(
+               name:     'Ron Wisley',
+               email:    'fake1@mail.com',
+               password: '123456'
+             )
     assert author.save
   end
 

@@ -29,7 +29,9 @@ Author.create!(
 					   age: rand(18..35),
 					   password: "123456",
 						 city_id: City.all.ids.sample,
-						 admin: true
+						 admin: true,
+						 activated: true,
+						 activated_at: Time.zone.now,
 					 )
 
 99.times do
@@ -39,7 +41,9 @@ Author.create!(
 					   email: Faker::Internet.email,
 					   age: rand(18..35),
 					   password: "123456",
-						 city_id: City.all.ids.sample
+						 city_id: City.all.ids.sample,
+						 activated: true,
+						 activated_at: Time.zone.now,
 					 )
 	puts "author #{author.name} created!"
 end

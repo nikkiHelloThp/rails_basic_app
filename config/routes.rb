@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
   
   resources :cities,   only: :show
+  resources :account_activations, only: :edit
   
   get 'contact',       to: 'static_pages#contact'
   get 'team',          to: 'static_pages#team'

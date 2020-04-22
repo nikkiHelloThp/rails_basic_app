@@ -5,11 +5,12 @@ class AuthorsController < ApplicationController
   before_action :admin_user,      only: :destroy
   
   def index
-    @authors = Author.paginate(page: params[:page])
+    @authors = Author.active.paginate(page: params[:page])
   end
 
   def show
     @author = Author.find(params[:id])
+    redirect_to root_url and return unless @author.activated?
   end
   
   def new

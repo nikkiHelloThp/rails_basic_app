@@ -74,7 +74,27 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
 		assert is_logged_in?
 		assert_not flash.empty?
 		assert_redirected_to author
-		# Password has expired
-		# assert false, "#{(author.reset_sent_at+3.hours).inspect}"
+	end
+
+	test "expired token" do
+		get new_password_reset_path
+		post password_resets_path, params: {
+																 password_reset: {
+																 	 email: @author.email
+																 }
+															 }
+		@author = assigns(:author)
+		@author.update_attribute(:reset_sent_at, 3.hours.ago)
+		patch password_reset_path(@author.reset_token),
+					params: {
+						email: @author.email,
+						author: {
+							password: 						 "foobar",
+							password_confirmation: "foobar"
+						}
+					}
+		assert_response :redirect
+		follow_redirect!
+		assert_match /expired/i, response.body
 	end
 end

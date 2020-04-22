@@ -48,6 +48,17 @@ class AuthorSignupTest < ActionDispatch::IntegrationTest
     # try to log in before activation
     log_in_as(author)
     assert_not is_logged_in?
+    # Index page
+    # Log in as a valid user
+    log_in_as(authors(:one))
+    # Unactivated user is on the second page but should not appear
+    get authors_path, params: { page: 2 }
+    assert_no_match author.name, response.body
+    # Profile page unactivated user
+    get author_path(author)
+    assert_redirected_to root_url
+    # Log out valid user
+    delete session_path(author)
     # Invalid activation token
     get edit_account_activation_path("invalid token")
     assert_not is_logged_in?

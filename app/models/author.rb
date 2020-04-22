@@ -14,6 +14,8 @@ class Author < ApplicationRecord
 	has_many :sent_messages, 		 foreign_key: 'sender_id', 		class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
 
+	scope :active, -> { where(activated: true) }
+
 	VALID_NAME_REGEX = /\A[a-zA-Z .,'-]+\z/
 
 	validates :name,
@@ -62,8 +64,7 @@ class Author < ApplicationRecord
 	end
 
 	def activate
-		update_attribute(:activated, 	 true)
-		update_attribute(:activated_at, Time.zone.now)
+		update_columns(activated: true, activated_at: Time.zone.now)
 	end
 
 	def send_activation_email
@@ -72,8 +73,8 @@ class Author < ApplicationRecord
 
 	def create_password_reset_digest
 		self.reset_token  = Author.new_token
-		update_attribute(:reset_digest, Author.digest(reset_token))
-		update_attribute(:reset_sent_at, Time.zone.now)
+		update_columns(reset_digest: 	Author.digest(reset_token),
+									 reset_sent_at: Time.zone.now)
 	end
 
 	def send_password_reset_email

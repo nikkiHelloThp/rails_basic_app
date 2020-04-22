@@ -89,7 +89,7 @@ class AuthorTest < ActiveSupport::TestCase
 	end
 
 	test "password should be present" do
-		@author.password = '   '
+		@author.password = ' ' * 6
 		assert_not @author.valid?
 		assert_equal @author.errors.full_messages[0], "Password can't be blank"
 	end

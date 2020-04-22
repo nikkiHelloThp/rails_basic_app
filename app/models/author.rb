@@ -1,5 +1,5 @@
 class Author < ApplicationRecord
-	attr_accessor :remember_token, :activation_token
+	attr_accessor :remember_token, :activation_token, :reset_token
 
 	before_save 	:downcase_email
 	before_create :create_activation_digest
@@ -68,6 +68,20 @@ class Author < ApplicationRecord
 
 	def send_activation_email
 		AuthorMailer.account_activation(self).deliver_now
+	end
+
+	def create_password_reset_digest
+		self.reset_token  = Author.new_token
+		update_attribute(:reset_digest, Author.digest(reset_token))
+		update_attribute(:reset_sent_at, Time.zone.now)
+	end
+
+	def send_password_reset_email
+		AuthorMailer.password_reset(self).deliver_now
+	end
+
+	def password_reset_expired?
+		reset_sent_at < 2.hours.ago
 	end
 
 	private

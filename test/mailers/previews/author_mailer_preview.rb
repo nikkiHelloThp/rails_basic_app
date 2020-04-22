@@ -10,7 +10,9 @@ class AuthorMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/author_mailer/password_reset
   def password_reset
-    AuthorMailer.password_reset
+    author = Author.first
+    author.reset_token = Author.new_token
+    AuthorMailer.password_reset(author)
   end
 
 end

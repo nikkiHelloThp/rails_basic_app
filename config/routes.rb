@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   resources :cities,   only: :show
   resources :account_activations, only: :edit
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   
   get 'contact',       to: 'static_pages#contact'
   get 'team',          to: 'static_pages#team'

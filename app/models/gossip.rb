@@ -1,9 +1,16 @@
 class Gossip < ApplicationRecord
 	belongs_to :author
 	default_scope -> { order(created_at: :desc) }
+	has_one_attached :picture
 	# has_many :comments, as: :commentable, dependent: :destroy
 	# has_many :likes, 											dependent: :destroy
 	# has_one  :tag
+
+	# VALID_PICTURE_REGEX = %r{/\.(png|jpeg|gif|jpg)$/}i
+	# validates :picture, format: { with: VALID_PICTURE_REGEX, message: "only allows png, jpeg, gif, jpg" }
+	# validates :picture, content_type: %w[image/gif image/png image/jpeg]
+	validate :picture_type
+	validate :picture_size
 	
 	validates :author_id,
 		presence: true
@@ -15,4 +22,19 @@ class Gossip < ApplicationRecord
 	validates :body,
 		presence: true,
 		length: { maximum: 140 }
+
+
+	private
+
+		def picture_type
+			unless picture.content_type.in?(%w[image/gif image/png image/jpeg])
+				errors.add(:picture, "only allows png, jpeg, gif, jpg")
+			end
+		end
+
+		def picture_size
+			if picture.byte_size > 1.megabyte
+				errors.add(:picture, "should be less than 1MB")
+			end
+		end
 end

@@ -65,7 +65,7 @@ class GossipsController < ApplicationController
 	# end
 
 	def gossip_params
-		params.require(:gossip).permit(:body)#, :title, :tag_id)
+		params.require(:gossip).permit(:body, :picture)#, :title, :tag_id)
 	end
 
 	def correct_user

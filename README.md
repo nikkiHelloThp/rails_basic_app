@@ -23,5 +23,3 @@
 - security
 
 - gemfile, gems environment
-
-1h26min

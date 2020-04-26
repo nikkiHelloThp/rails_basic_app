@@ -10,6 +10,7 @@ class AuthorsController < ApplicationController
 
   def show
     @author = Author.find(params[:id])
+    @gossips = @author.gossips.paginate(page: params[:page])
     redirect_to root_url and return unless @author.activated?
   end
   
@@ -54,14 +55,6 @@ class AuthorsController < ApplicationController
     end
 
     # before_filters
-
-    def logged_in_user?
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to new_session_path
-      end
-    end
 
     def correct_user
       @author = Author.find(params[:id])

@@ -1,0 +1,16 @@
+<li id="gossip-<%= gossip.id %>">
+	<%= link_to gravatar_for(gossip.author, size: 50), gossip.author %>
+	<span class="author">
+		<%= link_to gossip.author.name, gossip.author %>
+	</span>
+	<span class="content">
+		<%= gossip.body %>
+	</span>
+	<span class="timestamp">
+		Posted <%= time_ago_in_words(gossip.created_at) %> ago
+		<% if current_user?(gossip.author) %>
+		<%= link_to "delete", gossip_path(gossip), method: :delete,
+																	data: { confirm: "Are you sure?" } %>
+		<% end %>
+	</span>
+</li>

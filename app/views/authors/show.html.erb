@@ -1,12 +1,23 @@
-<h1>Author profile</h1>
+<%= provide(:title, "#{@author.name} ") %>
+
 <div class="row">
 	<aside class="col-md-4">
 		<section class="user_info">
-			<%= gravatar_for @author %>
-			<%= @author.name %>
-			<%= @author.email %>
-			<%= @author.age %>
-			<%= @author.description %>
+			<h1>
+				<%= gravatar_for @author %>
+				<%= @author.name %>
+			</h1>
 		</section>
 	</aside>
+	<div class="col-md-8">
+		<% if @author.gossips.any? %>
+		<h3>Gossips(<%= @author.gossips.count %>)</h3>
+			<ol class="gossips">
+				<%= render @gossips %>
+			</ol>
+			<div class="digg_pagination">
+				<%= will_paginate @gossips %>	
+			</div>
+		<% end %>
+	</div>
 </div>

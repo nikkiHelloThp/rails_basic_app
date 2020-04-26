@@ -1,10 +1,4 @@
 class Author < ApplicationRecord
-	attr_accessor :remember_token, :activation_token, :reset_token
-
-	before_save 	:downcase_email
-	before_create :create_activation_digest
-
-	has_secure_password
 
 	belongs_to :city, optional: true
 
@@ -13,6 +7,13 @@ class Author < ApplicationRecord
 	has_many :likes, 											dependent: :destroy
 	has_many :sent_messages, 		 foreign_key: 'sender_id', 		class_name: "PrivateMessage"
 	has_many :received_messages, foreign_key: 'recipient_id', class_name: "PrivateMessage"
+
+	attr_accessor :remember_token, :activation_token, :reset_token
+
+	before_save 	:downcase_email
+	before_create :create_activation_digest
+
+	has_secure_password
 
 	scope :active, -> { where(activated: true) }
 
@@ -83,6 +84,10 @@ class Author < ApplicationRecord
 
 	def password_reset_expired?
 		reset_sent_at < 2.hours.ago
+	end
+
+	def feed
+		Gossip.where("author_id = ?", id)
 	end
 
 	private

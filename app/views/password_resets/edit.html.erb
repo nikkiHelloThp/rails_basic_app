@@ -4,7 +4,7 @@
 	<div class="col-md-6 offset-md-3">
 		<%= form_for(@author, url: password_reset_path(params[:id])) do |f| %>
 			<% form_authenticity_token %>
-			<%= render 'shared/error_messages', record: @author %>
+			<%= render 'shared/error_messages', object: f.object %>
 			<%= hidden_field_tag :email, @author.email %>
 			<%= f.label :password %>
 			<%= f.password_field :password, class: "form-control" %>

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   resources :authors
   resources :sessions, only: [:new, :create, :destroy]
-  
-  resources :gossips do
-  	resources :comments
-    resources :likes, only: [:create, :destroy]
-  end
+
+  resources :gossips, only: [:create, :destroy]  
+  # resources :gossips do
+  # 	resources :comments
+  #   resources :likes, only: [:create, :destroy]
+  # end
   
   resources :comments do
     resources :comments, only: [:create, :edit, :update, :destroy]

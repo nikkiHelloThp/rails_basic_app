@@ -24,4 +24,4 @@
 
 - gemfile, gems environment
 
-2h10min
+1h26min

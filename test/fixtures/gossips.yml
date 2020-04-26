@@ -1,10 +1,33 @@
 # # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: 'My title'
-  body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
-  author: Author.last
+  body: This one should come last
+  created_at: <%= 3.days.ago %>
+  author: one
 
-# two:
-#   title: MyString
-#   body: MyText
+two:
+  body: this one should come second
+  created_at: <%= 3.hours.ago %>
+  author: one
+
+most_recent:
+  body: this one should come first
+  created_at: <%= Time.zone.now %>
+  author: one
+
+<% 4.upto(40) do |n| %>
+gossip_<%= n %>:
+  body: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 10.days.ago %>
+  author: one
+<% end %>
+
+fourty_one:
+  body: this is the fourty first gossip
+  created_at: <%= 5.days.ago %>
+  author: two
+
+fourty_two:
+  body: this is the fourty second gossip
+  created_at: <%= 5.months.ago %>
+  author: two

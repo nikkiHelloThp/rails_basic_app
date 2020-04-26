@@ -103,4 +103,12 @@ class AuthorTest < ActiveSupport::TestCase
 	test "authenticated? should return false with a nil digest" do
 		assert_not @author.authenticated?(:remember, '')
 	end
+
+	test "associated gossips should be destroyed" do
+		@author.save
+		@author.gossips.create(body: "Lorem ipsum")
+		assert_difference "Gossip.count", -1 do
+			@author.destroy
+		end
+	end
 end

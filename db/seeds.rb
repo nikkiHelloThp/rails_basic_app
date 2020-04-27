@@ -22,34 +22,33 @@ require 'faker'
 # 	puts "city #{city.name} created!"
 # end
 
-# Author.create!(
-# 					   name: Faker::Name.name,
-# 					   description: Faker::Lorem.sentence,
-# 					   email: Faker::Internet.email,
-# 					   age: rand(18..35),
-# 					   password: "123456",
-# 						 city_id: City.all.ids.sample,
-# 						 admin: true,
-# 						 activated: true,
-# 						 activated_at: Time.zone.now,
-# 					 )
+Author.create!(
+					   name: Faker::Name.name,
+					   # description: Faker::Lorem.sentence,
+					   email: Faker::Internet.email,
+					   # age: rand(18..35),
+					   password: "123456",
+						 # city_id: City.all.ids.sample,
+						 admin: true,
+						 activated: true,
+						 activated_at: Time.zone.now,
+					 )
 
-# 99.times do
-# 	author = Author.create(
-# 					   name: Faker::Name.name,
-# 					   description: Faker::Lorem.sentence,
-# 					   email: Faker::Internet.email,
-# 					   age: rand(18..35),
-# 					   password: "123456",
-# 						 city_id: City.all.ids.sample,
-# 						 activated: true,
-# 						 activated_at: Time.zone.now,
-# 					 )
-# 	puts "author #{author.name} created!"
-# end
+19.times do
+	author = Author.create(
+					   name: Faker::Name.name,
+					   # description: Faker::Lorem.sentence,
+					   email: Faker::Internet.email,
+					   # age: rand(18..35),
+					   password: "123456",
+						 # city_id: City.all.ids.sample,
+						 activated: true,
+						 activated_at: Time.zone.now,
+					 )
+end
 
 authors  = Author.order(:created_at).take(6)
-50.times do
+40.times do
 	body = Faker::Lorem.sentence(word_count: 5)
 	authors.each { |author| author.gossips.create!(body: body) }
 end

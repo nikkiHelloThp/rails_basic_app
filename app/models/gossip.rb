@@ -9,8 +9,8 @@ class Gossip < ApplicationRecord
 	# VALID_PICTURE_REGEX = %r{/\.(png|jpeg|gif|jpg)$/}i
 	# validates :picture, format: { with: VALID_PICTURE_REGEX, message: "only allows png, jpeg, gif, jpg" }
 	# validates :picture, content_type: %w[image/gif image/png image/jpeg]
-	validate :picture_type
-	validate :picture_size
+	# validate :picture_type
+	# validate :picture_size
 	
 	validates :author_id,
 		presence: true

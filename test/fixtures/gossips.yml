@@ -31,3 +31,13 @@ fourty_two:
   body: this is the fourty second gossip
   created_at: <%= 5.months.ago %>
   author: two
+
+fourty_three:
+  body: this is the fourty third gossip
+  created_at: <%= 5.days.ago %>
+  author: test_3
+
+fourty_four:
+  body: this is the fourty fourth gossip
+  created_at: <%= 5.months.ago %>
+  author: test_3

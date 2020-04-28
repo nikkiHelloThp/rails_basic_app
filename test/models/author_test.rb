@@ -111,4 +111,22 @@ class AuthorTest < ActiveSupport::TestCase
 			@author.destroy
 		end
 	end
+
+	test "feed should have the right posts" do
+		one 	= authors(:one)
+		two 	= authors(:two)
+		three = authors(:test_3)
+		# Posts from followed authors
+		two.gossips.each do |post_following|
+			assert one.feed.include?(post_following)
+		end
+		# Posts from self
+		one.gossips.each do |post_self|
+			assert one.feed.include?(post_self)
+		end
+		# Posts from unfollowed authors
+		three.gossips.each do |post_unfollowed|
+			assert three.feed.include?(post_unfollowed)
+		end
+	end
 end

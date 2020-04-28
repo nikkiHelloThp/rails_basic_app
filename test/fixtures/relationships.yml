@@ -8,9 +8,13 @@ two:
   followed: test_3
 
 three:
-  follower: two
-  followed: one
+  follower: test_3
+  followed: test_4
 
 four:
   follower: test_4
   followed: one
+
+five:
+  follower: test_3
+  followed: two

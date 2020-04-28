@@ -94,7 +94,10 @@ class Author < ApplicationRecord
 	end
 
 	def feed
-		Gossip.where("author_id = ?", id)
+		following_ids_subselect = "SELECT followed_id FROM relationships
+															 WHERE  follower_id = :user_id"
+		Gossip.where("author_id IN (#{following_ids_subselect})
+									OR author_id = :user_id", user_id: id)
 	end
 
 	def follow(other_author)

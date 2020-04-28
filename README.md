@@ -22,7 +22,4 @@
 - test access controllers !
 - security
 
-- gemfile, gems environment
-- aws version crash
-- test collection fail
 - validate picture size and type fail

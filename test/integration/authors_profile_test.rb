@@ -16,7 +16,12 @@ class AuthorsProfileTest < ActionDispatch::IntegrationTest
 		assert_match "Gossips(#{@author.gossips.count})", response.body
 		assert_select "div.digg_pagination"
 		@author.gossips.paginate(page: 1).each do |gossip|
-			# assert_match gossip.body, response.body
+			assert_match gossip.body, response.body
 		end
+		# Following/Follower stats
+		assert_select "a[href=?]", following_author_path(@author)
+		assert_select "a[href=?]", followers_author_path(@author)
+		assert_select "#following", text: "#{@author.following.count}"
+		assert_select "#followers", text: "#{@author.followers.count}"
 	end
 end

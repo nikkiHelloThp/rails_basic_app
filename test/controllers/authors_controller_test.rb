@@ -111,4 +111,14 @@ class AuthorsControllerTest < ActionController::TestCase
     assert_not flash.empty?
     assert_redirected_to authors_url
   end
+
+  test "should redirect following when not logged in" do
+    get :following, params: { id: @user.id }
+    assert_redirected_to new_session_url
+  end
+
+  test "should redirect followers when not logged in" do
+    get :followers, params: { id: @user.id }
+    assert_redirected_to new_session_url
+  end
 end

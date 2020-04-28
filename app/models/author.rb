@@ -1,7 +1,14 @@
 class Author < ApplicationRecord
 
 	belongs_to :city, optional: true
-
+	has_many :active_relationships, class_name: 	'Relationship',
+																	 foreign_key: 'follower_id',
+																	 dependent:   :destroy
+	has_many :passive_relationships, class_name:  'Relationship',
+																	 foreign_key: 'followed_id',
+																	 dependent:   :destroy
+	has_many :following, through: :active_relationships,  source: :followed
+	has_many :followers, through: :passive_relationships, source: :follower
 	has_many :gossips, 										dependent: :destroy
 	has_many :comments, as: :commentable, dependent: :destroy
 	has_many :likes, 											dependent: :destroy
@@ -89,6 +96,19 @@ class Author < ApplicationRecord
 	def feed
 		Gossip.where("author_id = ?", id)
 	end
+
+	def follow(other_author)
+		active_relationships.create(followed_id: other_author.id)
+	end
+
+	def unfollow(other_author)
+		active_relationships.find_by(followed_id: other_author.id).destroy
+	end
+
+	def following?(other_author)
+		following.include?(other_author)
+	end
+
 
 	private
 

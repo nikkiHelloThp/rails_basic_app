@@ -1,15 +1,15 @@
 class AuthorsController < ApplicationController
   
-  before_action :logged_in_user?, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user?, only: [:index, :edit, :update, :destroy,
+                                         :following, :followers]
   before_action :correct_user,    only: [:edit, :update]
   before_action :admin_user,      only: :destroy
-  
+  before_action :get_author,      only: [:show, :destroy, :following, :followers]
   def index
     @authors = Author.active.paginate(page: params[:page])
   end
 
   def show
-    @author = Author.find(params[:id])
     @gossips = @author.gossips.paginate(page: params[:page])
     redirect_to root_url and return unless @author.activated?
   end
@@ -30,7 +30,7 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
-    Author.find(params[:id]).destroy
+    @author.destroy
     flash[:success] = "Author deleted"
     redirect_to authors_url
   end
@@ -47,6 +47,17 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def following
+    @title = "Following "
+    @authors = @author.following.paginate(page: params[:page])
+    render "show_follow"
+  end
+
+  def followers
+    @title = "Followers "
+    @authors = @author.followers.paginate(page: params[:page])
+    render "show_follow"
+  end
 
   private
 
@@ -63,5 +74,9 @@ class AuthorsController < ApplicationController
 
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+
+    def get_author
+      @author = Author.find(params[:id]) 
     end
 end

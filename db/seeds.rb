@@ -22,36 +22,48 @@ require 'faker'
 # 	puts "city #{city.name} created!"
 # end
 
-Author.create!(
-					   name: Faker::Name.name,
-					   # description: Faker::Lorem.sentence,
-					   email: Faker::Internet.email,
-					   # age: rand(18..35),
-					   password: "123456",
-						 # city_id: City.all.ids.sample,
-						 admin: true,
-						 activated: true,
-						 activated_at: Time.zone.now,
-					 )
+# Author
+# Author.create!(
+# 					   name: Faker::Name.name,
+# 					   # description: Faker::Lorem.sentence,
+# 					   email: Faker::Internet.email,
+# 					   # age: rand(18..35),
+# 					   password: "123456",
+# 						 # city_id: City.all.ids.sample,
+# 						 admin: true,
+# 						 activated: true,
+# 						 activated_at: Time.zone.now,
+# 					 )
 
-19.times do
-	author = Author.create(
-					   name: Faker::Name.name,
-					   # description: Faker::Lorem.sentence,
-					   email: Faker::Internet.email,
-					   # age: rand(18..35),
-					   password: "123456",
-						 # city_id: City.all.ids.sample,
-						 activated: true,
-						 activated_at: Time.zone.now,
-					 )
-end
+# Authors
+# 19.times do
+# 	author = Author.create(
+# 					   name: Faker::Name.name,
+# 					   # description: Faker::Lorem.sentence,
+# 					   email: Faker::Internet.email,
+# 					   # age: rand(18..35),
+# 					   password: "123456",
+# 						 # city_id: City.all.ids.sample,
+# 						 activated: true,
+# 						 activated_at: Time.zone.now,
+# 					 )
+# end
 
-authors  = Author.order(:created_at).take(6)
-40.times do
-	body = Faker::Lorem.sentence(word_count: 5)
-	authors.each { |author| author.gossips.create!(body: body) }
-end
+# Gossips
+# authors  = Author.order(:created_at).take(6)
+# 40.times do
+# 	body = Faker::Lorem.sentence(word_count: 5)
+# 	authors.each { |author| author.gossips.create!(body: body) }
+# end
+
+# Following relationships
+authors = Author.all
+author  = authors.first
+following = authors[2..20]
+followers = authors[5..15]
+following.each { |followed| author.follow(followed) }
+followers.each { |follower| follower.follow(author) }
+
 # 3.times do
 # 	tag = Tag.create(name: Faker::Verb.base)
 # 	puts "tag #{tag.name} created!"

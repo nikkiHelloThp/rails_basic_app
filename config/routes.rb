@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  resources :authors
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :authors do
+    member do
+      get :following, :followers
+    end
+  end
 
-  resources :gossips, only: [:create, :destroy]  
+  resources :cities,              only: :show
+  resources :account_activations, only: :edit
+  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :sessions,            only: [:new, :create, :destroy]
+  resources :relationships,       only: [:create, :destroy]
+  resources :gossips,             only: [:create, :destroy]  
   # resources :gossips do
   # 	resources :comments
   #   resources :likes, only: [:create, :destroy]
@@ -15,10 +23,6 @@ Rails.application.routes.draw do
   resources :conversations, only: [:index, :create] do
     resources :private_messages, only: [:index, :new, :create]
   end
-  
-  resources :cities,   only: :show
-  resources :account_activations, only: :edit
-  resources :password_resets,     only: [:new, :create, :edit, :update]
   
   get 'contact',       to: 'static_pages#contact'
   get 'team',          to: 'static_pages#team'

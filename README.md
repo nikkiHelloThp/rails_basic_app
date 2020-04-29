@@ -2,24 +2,25 @@
 [gossip-app](https://gossip-basic-app-rails.herokuapp.com/)
 
 ### This app contains
-- static pages
-- dynamic pages
+- static and dynamic pages
+- model associations
+- validations
+- tests
 - CRUD
-- sessions
-- user authentication
-- admin
+- conditional rendering and partials
+- Bootstrap Css Ajax
+- embeded resources
+- authentication(sessions, remember, account activation, reset)
+- access control, and admin role
+- friendly forwarding
+- active storage
 - heroku deploy
+
 
 ## Tests
 - controllers
 	test request/response, data render, redirects, messages, conditional(if then redirect else then rerender)
 - models
-	test les cas extremes: classe|objet|methode, validations, CRUD, maybe association
+	test edge cases: classe|objet|methode, validations, CRUD, maybe association
 - views
 	test conditional based rendering, forms(click, fill, find the result somewhere on the page)
-
-## Todo
-- test access controllers !
-- security
-
-- validate picture size and type fail

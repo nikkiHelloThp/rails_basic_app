@@ -17,6 +17,8 @@ gem 'pry', '~> 0.12.2'
 gem 'faker', '~> 2.2', '>= 2.2.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'active_storage_validations', '~> 0.8.8'
+gem 'image_processing', '~> 1.10', '>= 1.10.3'
 
 group :development, :test do
   gem 'byebug', '~> 11.1', '>= 11.1.3', platforms: [:mri, :mingw, :x64_mingw]

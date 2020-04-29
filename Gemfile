@@ -43,7 +43,7 @@ group :test do
 end
 
 group :production do
-  gem 'aws-sdk-s3', '~> 1.63'
+  gem 'aws-sdk-s3', '~> 1.63', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
